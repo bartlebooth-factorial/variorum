@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+for File in $(ls)
+do
+	if [[ $File =~ [0-9]+-0\.txt ]]
+	then
+		echo $File
+		Start=$(grep -n "\*\*\* \?START OF" $File)
+		sed -i "" "1,${Start%%:*}d" $File && echo 'Top rinsed'
+	fi
+done
+
+for File in $(ls)
+do
+	if [[ $File =~ [0-9]+-0\.txt ]]
+	then
+		echo $File
+		End=$(grep -n "\*\*\* \?END OF" $File)
+		sed -i "" "${End%%:*},\$d" $File && echo 'Bottom rinsed'
+	fi
+done

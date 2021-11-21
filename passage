@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+# select a random passage from textbase and write it to a temp file
+
+import subprocess
+import random
+
+while True:
+    r = random.randint(0, 5000)
+    try:
+        with open(r'./texts/{}-0.txt'.format(r)) as file:
+            text = file.read()
+    except FileNotFoundError:
+        continue
+    else:
+        break
+
+l = len(text)
+start = random.randint(0, l)
+passage = text[start:start+1000]
+new_paragraph = passage.find('\n\n')
+end = text[start+new_paragraph+1000:].find('\n\n')
+
+final = text[start+new_paragraph:start+new_paragraph+1000+end]
+
+final = final.replace("’", "'")
+final = final.replace("‘", "'")
+final = final.replace('“', '"')
+final = final.replace('”', '"')
+final = final.replace('—', '-')
+
+# print(final)
+#print()
+#print(f'    from index {r}')
+
+with open('current.txt', 'w') as writer:
+    writer.writelines(final)

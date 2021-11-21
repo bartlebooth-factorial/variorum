@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+clear
+
+while read -r line; do
+	echo "$line"
+	# skip blank lines
+	if [ "$line" == "" ]
+	then
+		continue
+	fi
+	read -r -u 3 user
+	# q for quit
+	if [ "$user" == "q" ]
+	then
+		break
+	fi
+	# c for clear
+	if [ "$user" == "c" ]; then
+		clear
+		echo ""
+		echo ""
+		echo "$line"
+		read -r -u 3 user
+		if [ "$user" == "q" ]; then
+			break
+		fi
+	fi
+	# compare user input with line
+	if [ "$line" == "$user" ]
+	then
+		:
+	else
+		echo "    incorrect"
+		echo "			text	you"
+		cmp -b -l <(echo "$line") <(echo "$user")
+	fi
+	echo ""
+done 3<&0 < current.txt

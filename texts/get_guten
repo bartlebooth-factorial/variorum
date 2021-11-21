@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+read -p 'Enter starting index (inclusive): ' Start
+read -p 'Enter ending index (exclusive): ' End
+End=$((End-1))
+
+for Idx in $(seq $Start $End)
+do
+	wget "https://www.gutenberg.org/files/$Idx/$Idx-0.txt"
+done

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+while true; do
+	Idx=$(( RANDOM % 5000 ))
+	File="$Idx-0.txt"
+	echo "$File"
+	if [ $(ls ./texts | grep "^$File") ]; then
+		echo "found"
+		break
+	fi
+done
+
+echo "found file is $File"
+
+numLines=$(wc -l ./texts/$File | awk '{print $1}')
+
+echo "$numLines"
